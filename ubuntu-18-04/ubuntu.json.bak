@@ -1,0 +1,94 @@
+{
+  "variables": 
+  {
+	  "hcloud-token": "IO1PwBScxjVeshtnTObo85RgjW7WEVPg7gzGvw25IoNNodNfVfOg08Q8Y41Whvwk",
+      "hcloud-servertype": "cx11",
+      "image_name": "ubuntu_k-shop",
+      "boot_command": "<tab><wait><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>/linux initrd=/initrd.gz auto=true noapic=true fb=false hostname=localhost locale=en_US keyboard-configuration/modelcode=SKIP"
+  },
+  "builders": 
+  [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": "{{user `boot_command`}} preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<enter>",
+      "boot_wait": "10s",
+      "guest_os_type": "Ubuntu_64",
+      "headless": true,
+      "hard_drive_interface": "sata",
+      "http_directory": "http",
+      "iso_urls": 
+      [
+        "iso/mini.iso",
+        "http://archive.ubuntu.com/ubuntu/dists/bionic-updates/main/installer-amd64/current/images/netboot/mini.iso"
+      ],
+      "iso_checksum_type": "sha256",
+      "iso_checksum": "b4667b8f6d863271a014855d0f55b365f956bcdf8c691c8a3741b60d905e9647",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "sudo systemctl poweroff",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "{{ user `image_name` }}",
+      "vboxmanage": 
+      [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "scripts/init.sh",
+      "execute_command": "{{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "override": {
+        "virtualbox-iso": {
+          "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
+        }
+      }
+    },
+    {
+      "type": "shell",
+      "script": "scripts/init_vagrant.sh",
+      "only": [ "virtualbox-iso" ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/cleanup.sh",
+      "only": [ "virtualbox-iso", "digitalocean" ],
+      "execute_command": "{{.Vars}} sudo -S -E bash '{{.Path}}'"
+     }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "compression_level": "8",
+      "output": "{{ user `image_name` }}.box"
+    },
+    {
+      "type": "digitalocean-import",
+      "api_token": "0dbd11a336af37642c6eef7fe8e97de818a2e23d83dc69167542cc96dbfba3eb",
+      "spaces_key": "{{user `key`}}",
+      "spaces_secret": "{{user `secret`}}",
+      "spaces_region": "fra1",
+      "space_name": "import-bucket",
+      "image_name": "ubuntu-18.10-minimal-amd64",
+      "image_description": "Packer import {{timestamp}}",
+      "image_regions": ["fra1"],
+      "image_tags": ["custom", "packer"]
+}
+  ]
+}

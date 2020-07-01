@@ -1,0 +1,41 @@
+{
+  "builds": [
+    {
+      "name": "5e96cb07-c5ac-5ff6-e003-10401a028838",
+      "builder_type": "hcloud",
+      "build_time": 1586940914,
+      "files": null,
+      "artifact_id": "15155440",
+      "packer_run_uuid": "1855769c-9ac9-1e1b-44cb-c1d1accf1561",
+      "custom_data": null
+    },
+    {
+      "name": "5e96d3bc-7ceb-00c6-4501-8c220e100937",
+      "builder_type": "hcloud",
+      "build_time": 1586943169,
+      "files": null,
+      "artifact_id": "15155744",
+      "packer_run_uuid": "463d760c-65e7-ab76-1d54-41bde31113ba",
+      "custom_data": null
+    },
+    {
+      "name": "5e99690a-f020-4b4c-9274-42ba96763053",
+      "builder_type": "hcloud",
+      "build_time": 1587112490,
+      "files": null,
+      "artifact_id": "15240591",
+      "packer_run_uuid": "f9bc85d2-4559-ffc2-020f-020cdfc878c1",
+      "custom_data": null
+    },
+    {
+      "name": "5e997388-ce38-9abe-553f-212bcb581734",
+      "builder_type": "hcloud",
+      "build_time": 1587115172,
+      "files": null,
+      "artifact_id": "15241086",
+      "packer_run_uuid": "6b4e4737-df03-8071-267b-dc41a7c67831",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "6b4e4737-df03-8071-267b-dc41a7c67831"
+}

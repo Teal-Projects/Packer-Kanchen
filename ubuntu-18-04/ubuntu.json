@@ -1,0 +1,46 @@
+{
+  "variables": {
+	"hcloud-token": "IO1PwBScxjVeshtnTObo85RgjW7WEVPg7gzGvw25IoNNodNfVfOg08Q8Y41Whvwk",
+    "hcloud-servertype": "cx11",
+    "image_name": "ubuntu_k-shop",
+	"boot_command": "<tab><wait><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>/linux initrd=/initrd.gz auto=true noapic=true fb=false hostname=localhost locale=en_US keyboard-configuration/modelcode=SKIP"
+  },
+  "builders": 
+  [
+	{
+      "type": "hcloud",
+      "name": "{{ uuid }}",
+      "ssh_username": "root",
+      "token": "{{ user `hcloud-token` }}",
+      "server_type": "{{ user `hcloud-servertype` }}",
+      "location": "fsn1",
+      "image": "ubuntu-18.04",
+      "rescue": "linux64",
+      "snapshot_name": "ubuntu-18.04-{{ timestamp }}",
+      "snapshot_labels": 
+      {
+        "nodetype": "ubuntu-18.04"
+      }
+    }
+  ],
+  "provisioners": 
+  [
+    {
+      "type": "shell",
+      "script": "scripts/init.sh",
+      "execute_command": "{{.Vars}} sudo -S -E bash '{{.Path}}'"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/cleanup.sh",
+      "execute_command": "{{.Vars}} sudo -S -E bash '{{.Path}}'"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "compression_level": "8",
+      "output": "{{ user `image_name` }}.box"
+    }
+  ]
+}

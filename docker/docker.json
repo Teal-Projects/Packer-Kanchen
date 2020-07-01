@@ -1,0 +1,39 @@
+
+{
+"variables": {
+   "terraform_version": "0.12.20",
+   "dockerneo_username": "neofonie",
+   "dockerneo_password": "pull4neo",
+   "dockerneo_push_repository": "registry.neofonie.de/asp/kanchen-terraform"
+ },
+"builders": [
+   {
+     "type": "docker",
+     "image": "hashicorp/terraform:0.12.20",
+     "commit": true,
+     "changes": [
+        "VOLUME /data",
+        "WORKDIR /data"
+     ]
+   }
+ ]
+
+}
+
+"post-processors": [
+ [
+   {
+        "type": "docker-tag",
+        "repository": "{{user `dockerneo_push_repository`}}",
+        "tag": "{{user `terraform_version`}}"
+   },
+   {
+        "type": "docker-push",
+        "login": "false",
+        "login_username": "{{user `dockerneo_username`}}",
+        "login_password": "{{user `dockerneo_password`}}"
+   }
+]
+ ]
+
+}
