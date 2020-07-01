@@ -1,7 +1,7 @@
 {
   "variables": 
   {
-	  "hcloud-token": "IO1PwBScxjVeshtnTObo85RgjW7WEVPg7gzGvw25IoNNodNfVfOg08Q8Y41Whvwk",
+	  "hcloud-token": "",
       "hcloud-servertype": "cx11",
       "image_name": "ubuntu_k-shop",
       "boot_command": "<tab><wait><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>/linux initrd=/initrd.gz auto=true noapic=true fb=false hostname=localhost locale=en_US keyboard-configuration/modelcode=SKIP"
@@ -80,7 +80,7 @@
     },
     {
       "type": "digitalocean-import",
-      "api_token": "0dbd11a336af37642c6eef7fe8e97de818a2e23d83dc69167542cc96dbfba3eb",
+      "api_token": "",
       "spaces_key": "{{user `key`}}",
       "spaces_secret": "{{user `secret`}}",
       "spaces_region": "fra1",

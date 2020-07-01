@@ -1,6 +1,6 @@
 {
     "variables": {
-        "hcloud-token": "IO1PwBScxjVeshtnTObo85RgjW7WEVPg7gzGvw25IoNNodNfVfOg08Q8Y41Whvwk",
+        "hcloud-token": "",
         "hcloud-servertype": "cx11",
         "arch-release": "2020-04-01",
         "system-keymap": "us",

@@ -1,6 +1,6 @@
 {
   "variables": {
-	"hcloud-token": "IO1PwBScxjVeshtnTObo85RgjW7WEVPg7gzGvw25IoNNodNfVfOg08Q8Y41Whvwk",
+	"hcloud-token": "",
     "hcloud-servertype": "cx11",
     "image_name": "ubuntu_k-shop",
 	"boot_command": "<tab><wait><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>/linux initrd=/initrd.gz auto=true noapic=true fb=false hostname=localhost locale=en_US keyboard-configuration/modelcode=SKIP"
